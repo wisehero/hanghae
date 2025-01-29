@@ -1,4 +1,4 @@
-package chap02.java;
+package chap02;
 
 public enum PasswordStrength {
 	INVALID, WEAK, NORMAL, STRONG
