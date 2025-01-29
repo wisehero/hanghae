@@ -20,20 +20,13 @@ public class ExpiryDateCalculatorTest {
 	@Test
 	@DisplayName("만원을 납부하면 한달 뒤에 만료된다.")
 	void test1() {
-		LocalDate billingDate = LocalDate.of(2025, 3, 1);
-		int payAmount = 10_000;
+		assertExpiryDate(LocalDate.of(2025, 3, 1), 10_000, LocalDate.of(2025, 4, 1));
+		assertExpiryDate(LocalDate.of(2025, 5, 5), 10_000, LocalDate.of(2025, 6, 5));
+	}
 
+	private void assertExpiryDate(LocalDate billingDate, int payAmount, LocalDate expectedExpiryDate) {
 		ExpiryDateCalculator cal = new ExpiryDateCalculator();
 		LocalDate expiryDate = cal.calculateExpiryDate(billingDate, payAmount);
-
-		assertThat(expiryDate).isEqualTo(LocalDate.of(2025, 4, 1));
-
-		LocalDate billingDate2 = LocalDate.of(2025, 3, 31);
-		int payAmount2 = 10_000;
-
-		ExpiryDateCalculator cal2 = new ExpiryDateCalculator();
-		LocalDate expiryDate2 = cal2.calculateExpiryDate(billingDate2, payAmount2);
-
-		assertThat(expiryDate2).isEqualTo(LocalDate.of(2025, 4, 30));
+		assertThat(expiryDate).isEqualTo(expectedExpiryDate);
 	}
 }
