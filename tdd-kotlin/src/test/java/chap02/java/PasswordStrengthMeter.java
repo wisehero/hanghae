@@ -2,7 +2,7 @@ package chap02.java;
 
 public class PasswordStrengthMeter {
 
-	public PasswordStrength meter(String s) {
+	public PasswordStrength meterV1(String s) {
 		if (s == null || s.isEmpty()) {
 			return PasswordStrength.INVALID;
 		}
@@ -34,6 +34,26 @@ public class PasswordStrengthMeter {
 		if (!containsUpp) {
 			return PasswordStrength.NORMAL;
 		}
+		return PasswordStrength.STRONG;
+	}
+
+	public PasswordStrength meterV2(String s) {
+		if (s == null || s.isEmpty())
+			return PasswordStrength.INVALID;
+
+		int metCounts = 0;
+		if (s.length() >= 8)
+			metCounts++;
+		if (meetsContainingNumberCriteria(s))
+			metCounts++;
+		if (meetsContainingUppercaseCriteria(s))
+			metCounts++;
+
+		if (metCounts == 1)
+			return PasswordStrength.WEAK;
+		if (metCounts == 2)
+			return PasswordStrength.NORMAL;
+
 		return PasswordStrength.STRONG;
 	}
 
