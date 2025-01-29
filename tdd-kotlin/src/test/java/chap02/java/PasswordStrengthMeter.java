@@ -57,6 +57,30 @@ public class PasswordStrengthMeter {
 		return PasswordStrength.STRONG;
 	}
 
+	public PasswordStrength meterV3(String s) {
+		if (s == null || s.isEmpty())
+			return PasswordStrength.INVALID;
+
+		int metCounts = getMetCriteriaCounts(s);
+
+		if (metCounts <= 1)
+			return PasswordStrength.WEAK;
+		if (metCounts == 2)
+			return PasswordStrength.NORMAL;
+
+		return PasswordStrength.STRONG;
+	}
+
+	private int getMetCriteriaCounts(String s) {
+		int metCounts = 0;
+		if (s.length() >= 8)
+			metCounts++;
+		if (meetsContainingNumberCriteria(s))
+			metCounts++;
+		if (meetsContainingUppercaseCriteria(s))
+			metCounts++;
+		return metCounts;
+	}
 	// 0~9 사이의 숫자를 포함하는지 검사하는 메서드
 	private boolean meetsContainingNumberCriteria(String s) {
 		for (char ch : s.toCharArray()) {

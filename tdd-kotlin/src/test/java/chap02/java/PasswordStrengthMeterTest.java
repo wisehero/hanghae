@@ -22,7 +22,8 @@ public class PasswordStrengthMeterTest {
 
 	private void assertStrength(String password, PasswordStrength expStr) {
 		// PasswordStrength result = meter.meterV1(password);
-		PasswordStrength result = meter.meterV2(password);
+		// PasswordStrength result = meter.meterV2(password);
+		PasswordStrength result = meter.meterV3(password);
 		assertThat(result).isEqualTo(expStr);
 	}
 
