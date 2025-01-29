@@ -4,6 +4,7 @@
 
 # Build output
 build/
+out/
 
 # Kotlin/JVM specific
 *.class
