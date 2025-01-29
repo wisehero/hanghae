@@ -15,6 +15,11 @@ public class PasswordStrengthMeter {
 		if (!containsNum) {
 			return PasswordStrength.NORMAL;
 		}
+
+		boolean containsUpp = meetsContainingUppercaseCriteria(s);
+		if (!containsUpp) {
+			return PasswordStrength.NORMAL;
+		}
 		return PasswordStrength.STRONG;
 	}
 
@@ -22,6 +27,16 @@ public class PasswordStrengthMeter {
 	private boolean meetsContainingNumberCriteria(String s) {
 		for (char ch : s.toCharArray()) {
 			if (ch >= '0' && ch <= '9') {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	// 대문자를 포함하는지 검사하는 메서드
+	private boolean meetsContainingUppercaseCriteria(String s) {
+		for (char ch : s.toCharArray()) {
+			if (Character.isUpperCase(ch)) {
 				return true;
 			}
 		}

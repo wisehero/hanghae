@@ -49,4 +49,10 @@ public class PasswordStrengthMeterTest {
 	void test4() {
 		assertStrength("", PasswordStrength.INVALID);
 	}
+
+	@Test
+	@DisplayName("대문자를 포함하지 않고 나머지를 충족하는 경우")
+	void test5() {
+		assertStrength("ab12!@df", PasswordStrength.NORMAL);
+	}
 }
