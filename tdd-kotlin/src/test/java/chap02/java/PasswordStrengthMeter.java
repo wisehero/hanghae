@@ -3,9 +3,14 @@ package chap02.java;
 public class PasswordStrengthMeter {
 
 	public PasswordStrength meter(String s) {
+		if (s == null || s.isEmpty()) {
+			return PasswordStrength.INVALID;
+		}
+
 		if (s.length() < 8) {
 			return PasswordStrength.NORMAL;
 		}
+
 		boolean containsNum = meetsContainingNumberCriteria(s);
 		if (!containsNum) {
 			return PasswordStrength.NORMAL;
