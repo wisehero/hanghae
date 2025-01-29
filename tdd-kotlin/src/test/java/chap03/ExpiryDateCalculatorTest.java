@@ -64,13 +64,29 @@ public class ExpiryDateCalculatorTest {
 	@Test
 	@DisplayName("첫 납부일과 만료일 일자가 다를때 만원 납부")
 	void test3() {
-		PayData payData = PayData.builder()
+		PayData payData1 = PayData.builder()
 			.firstBillingDate(LocalDate.of(2025, 1, 31))
 			.billingDate(LocalDate.of(2025, 2, 28))
 			.payAmount(10_000)
 			.build();
 
-		assertExpiryDate(payData, LocalDate.of(2025, 3, 31));
+		assertExpiryDate(payData1, LocalDate.of(2025, 3, 31));
+
+		PayData payData2 = PayData.builder()
+			.firstBillingDate(LocalDate.of(2025, 1, 30))
+			.billingDate(LocalDate.of(2025, 2, 28))
+			.payAmount(10_000)
+			.build();
+
+		assertExpiryDate(payData2, LocalDate.of(2025, 3, 30));
+
+		PayData payData3 = PayData.builder()
+			.firstBillingDate(LocalDate.of(2025, 5, 31))
+			.billingDate(LocalDate.of(2025, 6, 30))
+			.payAmount(10_000)
+			.build();
+
+		assertExpiryDate(payData3, LocalDate.of(2025, 7, 31));
 	}
 
 	private void assertExpiryDate(PayData payData, LocalDate expectedExpiryDate) {
