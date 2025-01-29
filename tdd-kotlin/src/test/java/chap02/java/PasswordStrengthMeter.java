@@ -6,17 +6,31 @@ public class PasswordStrengthMeter {
 		if (s == null || s.isEmpty()) {
 			return PasswordStrength.INVALID;
 		}
+		boolean lengthEnough = s.length() >= 8;
+		boolean containsNum = meetsContainingNumberCriteria(s);
+		boolean containsUpp = meetsContainingUppercaseCriteria(s);
 
-		if (s.length() < 8) {
-			return PasswordStrength.NORMAL;
+		// 길이만 8글자 이상인 경우
+		if (lengthEnough && !containsNum && !containsUpp) {
+			return PasswordStrength.WEAK;
 		}
 
-		boolean containsNum = meetsContainingNumberCriteria(s);
+		// 숫자만 포함하는 경우
+		if (!lengthEnough && containsNum && !containsUpp) {
+			return PasswordStrength.WEAK;
+		}
+
+		// 대문자만 포함하는 경우
+		if (!lengthEnough && !containsNum && containsUpp) {
+			return PasswordStrength.WEAK;
+		}
+
+		if (!lengthEnough) {
+			return PasswordStrength.NORMAL;
+		}
 		if (!containsNum) {
 			return PasswordStrength.NORMAL;
 		}
-
-		boolean containsUpp = meetsContainingUppercaseCriteria(s);
 		if (!containsUpp) {
 			return PasswordStrength.NORMAL;
 		}

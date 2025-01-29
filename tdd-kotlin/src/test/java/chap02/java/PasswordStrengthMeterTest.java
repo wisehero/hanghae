@@ -55,4 +55,22 @@ public class PasswordStrengthMeterTest {
 	void test5() {
 		assertStrength("ab12!@df", PasswordStrength.NORMAL);
 	}
+
+	@Test
+	@DisplayName("길이가 8글자 이상인 조건만 충족하는 경우 WEAK를 반환")
+	void test6() {
+		assertStrength("abdefghi", PasswordStrength.WEAK);
+	}
+
+	@Test
+	@DisplayName("숫자 포함 조건만 충족하는 경우엔 WEAK")
+	void test7() {
+		assertStrength("12345", PasswordStrength.WEAK);
+	}
+
+	@Test
+	@DisplayName("대문자 포함 조건만 충족하는 경우엔 WEAK")
+	void test8() {
+		assertStrength("ABZEF", PasswordStrength.WEAK);
+	}
 }
