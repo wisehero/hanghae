@@ -12,4 +12,9 @@ public class SpyEmailNotifier implements EmailNotifier {
 	public String getEmail() {
 		return email;
 	}
+
+	@Override
+	public void sendRegisterEmail(String email) {
+		this.called = true;
+	}
 }
