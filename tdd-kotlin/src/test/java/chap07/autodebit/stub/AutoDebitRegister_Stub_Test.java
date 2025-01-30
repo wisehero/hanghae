@@ -2,7 +2,6 @@ package chap07.autodebit.stub;
 
 import static org.assertj.core.api.Assertions.*;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -34,5 +33,16 @@ public class AutoDebitRegister_Stub_Test {
 		RegisterResult result = register.register(request);
 
 		assertThat(result.getValidity()).isEqualTo(CardValidity.INVALID);
+	}
+
+	@Test
+	@DisplayName("도난당한 카드 번호 테스트")
+	void theftCardNumber() {
+		stubValidator.setTheftNo("1234567890123456");
+
+		AutoDebitRequest request = new AutoDebitRequest("user1", "1234567890123456");
+		RegisterResult result = register.register(request);
+
+		assertThat(result.getValidity()).isEqualTo(CardValidity.THEFT);
 	}
 }
