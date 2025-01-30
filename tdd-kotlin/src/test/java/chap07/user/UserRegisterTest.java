@@ -1,5 +1,7 @@
 package chap07.user;
 
+import static org.assertj.core.api.Assertions.*;
+
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -22,7 +24,7 @@ public class UserRegisterTest {
 	void weakPassword() {
 		stubWeakPasswordChecker.setWeak(true); // 약한 암호로 설정
 
-		Assertions.assertThatThrownBy(() -> {
+		assertThatThrownBy(() -> {
 			userRegister.register("id", "pw", "email");
 		}).isInstanceOf(WeakPasswordException.class);
 	}
@@ -32,7 +34,7 @@ public class UserRegisterTest {
 	void dupIdExists() {
 		fakeRepository.save(new User("id", "pw", "email"));
 
-		Assertions.assertThatThrownBy(() -> {
+		assertThatThrownBy(() -> {
 			userRegister.register("id", "pw", "email");
 		}).isInstanceOf(DupIdException.class);
 	}
