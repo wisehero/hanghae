@@ -13,5 +13,9 @@ public class UserRegister {
 		if (passwordChecker.checkPasswordWeak(pw)) {
 			throw new WeakPasswordException();
 		}
+		User user = userRepository.findById(id);
+		if (user != null) {
+			throw new DupIdException();
+		}
 	}
 }

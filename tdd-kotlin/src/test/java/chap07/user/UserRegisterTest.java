@@ -38,4 +38,14 @@ public class UserRegisterTest {
 			userRegister.register("id", "pw", "email");
 		}).isInstanceOf(DupIdException.class);
 	}
+
+	@Test
+	@DisplayName("같은 ID가 없으면 가입 성공함")
+	void noDupId_RegisterSuccess() {
+		userRegister.register("id", "pw", "email");
+
+		User savedUser = fakeRepository.findById("id"); // 가입 결과 확인
+		assertThat(savedUser.getId()).isEqualTo("id");
+		assertThat(savedUser.getEmail()).isEqualTo("email");
+	}
 }
