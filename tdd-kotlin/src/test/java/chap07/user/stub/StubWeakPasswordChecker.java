@@ -1,4 +1,6 @@
-package chap07.user;
+package chap07.user.stub;
+
+import chap07.user.WeakPasswordChecker;
 
 public class StubWeakPasswordChecker implements WeakPasswordChecker {
 
@@ -6,5 +8,10 @@ public class StubWeakPasswordChecker implements WeakPasswordChecker {
 
 	public void setWeak(boolean weak) {
 		this.weak = weak;
+	}
+
+	@Override
+	public boolean checkPasswordWeak(String pw) {
+		return weak;
 	}
 }
