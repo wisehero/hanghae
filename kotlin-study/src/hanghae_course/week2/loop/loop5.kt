@@ -1,4 +1,4 @@
-package week2.loop
+package hanghae_course.week2.loop
 
 fun main() {
     var catStatus = false

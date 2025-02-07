@@ -1,4 +1,4 @@
-package week2.loop
+package hanghae_course.week2.loop
 
 fun main() {
     var infos = arrayOf("꿩", "닭", "참새", "오목눈이", "공작새")
