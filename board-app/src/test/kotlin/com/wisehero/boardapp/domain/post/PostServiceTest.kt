@@ -25,7 +25,6 @@ class PostServiceTest @Autowired constructor(
     }
 
     @Test
-    @DisplayName("Post 생성 테스트")
     fun `게시글이_생성되면_제목_작성자_내용_작성날짜가 반환된다`() {
         // given
         val request = PostCreateRequest(
@@ -45,6 +44,26 @@ class PostServiceTest @Autowired constructor(
         assertThat(savedPost.createdAt).isNotNull
     }
 
+    @Test
+    @DisplayName("Testable Code -> 기댓값을 변수나 필드로 표현하지 않기")
+    fun `게시글이_생성되면_제목_작성자_내용_작성날짜가 반환된다 Version 2`() {
+        // given
+        val request = PostCreateRequest(
+            title = "테스트 제목",
+            content = "테스트 내용",
+            author = "작성자",
+            password = "Abcdefg1!@#"
+        )
+
+        // when
+        val savedPost: PostCreateResponse = postService.createPost(request)
+
+        // then
+        assertThat(savedPost.title).isEqualTo("테스트 제목")
+        assertThat(savedPost.content).isEqualTo("테스트 내용")
+        assertThat(savedPost.author).isEqualTo("작성자")
+        assertThat(savedPost.createdAt).isNotNull
+    }
 
     @ParameterizedTest(name = "잘못된 비밀번호 {0}는 게시글 작성에 실패한다.")
     @ValueSource(
