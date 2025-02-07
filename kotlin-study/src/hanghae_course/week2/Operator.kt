@@ -1,4 +1,4 @@
-package week2
+package hanghae_course.week2
 
 fun main() {
     println("===================== 산술 연산자 =====================")
