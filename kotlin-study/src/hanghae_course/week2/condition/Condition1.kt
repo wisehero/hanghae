@@ -1,4 +1,4 @@
-package week2.condition
+package hanghae_course.week2.condition
 
 fun main() {
     val number = 10
