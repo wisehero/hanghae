@@ -11,6 +11,8 @@ class PersonV2 private constructor(
 
     companion object Factory : Log {
         private const val MIN_AGE = 1 // const 붙으면 진짜 상수
+
+        @JvmStatic
         fun newBaby(name: String): PersonV2 {
             return PersonV2(name, MIN_AGE)
         }
