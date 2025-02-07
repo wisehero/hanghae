@@ -1,4 +1,4 @@
-package week1
+package hanghae_course.week1
 
 fun main() {
     println("hello World!");
