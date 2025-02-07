@@ -95,4 +95,34 @@ class PostServiceTest @Autowired constructor(
             .isInstanceOf(IllegalArgumentException::class.java)
             .hasMessage("비밀번호는 영어 대소문자, 숫자, 특수문자를 포함한 8자 이상 20자 이하여야 합니다.")
     }
+
+    @Test
+    fun `게시글 ID로 게시글 상세를 조회할 수 있다`() {
+        // given
+        val request = PostCreateRequest(
+            title = "테스트 제목",
+            content = "테스트 내용",
+            author = "작성자",
+            password = "Abcdefg1!@#"
+        )
+        postRepository.save(request.toEntity())
+
+        // when
+        val post = postService.getPost(1L)
+
+        // then
+        assertThat(post.id).isEqualTo(1L)
+        assertThat(post.title).isEqualTo("테스트 제목")
+        assertThat(post.content).isEqualTo("테스트 내용")
+        assertThat(post.author).isEqualTo("작성자")
+        assertThat(post.createdAt).isNotNull
+    }
+
+    @Test
+    fun `존재하지 않는 게시글 ID로 게시글 상세를 조회하면 예외가 발생한다`() {
+        // when then
+        assertThatThrownBy { postService.getPost(1L) }
+            .isInstanceOf(IllegalArgumentException::class.java)
+            .hasMessage("해당 ID의 게시글이 존재하지 않습니다.")
+    }
 }

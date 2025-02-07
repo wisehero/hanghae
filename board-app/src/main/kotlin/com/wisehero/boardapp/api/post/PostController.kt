@@ -2,8 +2,11 @@ package com.wisehero.boardapp.api.post
 
 import com.wisehero.boardapp.api.post.request.PostCreateRequest
 import com.wisehero.boardapp.api.post.response.PostCreateResponse
+import com.wisehero.boardapp.api.post.response.PostReadResponse
 import com.wisehero.boardapp.domain.post.PostService
 import jakarta.validation.Valid
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -18,5 +21,10 @@ class PostController(
     @PostMapping
     fun createPost(@Valid @RequestBody request: PostCreateRequest): PostCreateResponse {
         return postService.createPost(request);
+    }
+
+    @GetMapping("/{id}")
+    fun getPost(@PathVariable id: Long): PostReadResponse {
+        return postService.getPost(id)
     }
 }

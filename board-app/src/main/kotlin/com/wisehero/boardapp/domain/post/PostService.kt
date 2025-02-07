@@ -2,11 +2,14 @@ package com.wisehero.boardapp.domain.post
 
 import com.wisehero.boardapp.api.post.request.PostCreateRequest
 import com.wisehero.boardapp.api.post.response.PostCreateResponse
+import com.wisehero.boardapp.api.post.response.PostReadResponse
 import com.wisehero.boardapp.util.isValidPassword
-import jakarta.transaction.Transactional
+
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
+@Transactional(readOnly = true)
 class PostService(
     private val postRepository: PostRepository
 ) {
@@ -28,4 +31,14 @@ class PostService(
         )
     }
 
+    fun getPost(id: Long): PostReadResponse {
+        val post = postRepository.findPostById(id) ?: throw IllegalArgumentException("해당 ID의 게시글이 존재하지 않습니다.")
+        return PostReadResponse(
+            id = post.id!!,
+            title = post.title,
+            content = post.content,
+            author = post.author,
+            createdAt = post.createdAt
+        )
+    }
 }
