@@ -1,4 +1,4 @@
-package week2
+package hanghae_course.week2
 
 fun main() {
     val name = "참새"
