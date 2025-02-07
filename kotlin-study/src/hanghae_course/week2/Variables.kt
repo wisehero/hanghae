@@ -1,4 +1,4 @@
-package week2
+package hanghae_course.week2
 
 fun main() {
     // 예시 1: 정수형 변수
