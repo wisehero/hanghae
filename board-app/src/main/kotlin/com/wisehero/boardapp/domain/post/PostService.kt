@@ -1,8 +1,10 @@
 package com.wisehero.boardapp.domain.post
 
 import com.wisehero.boardapp.api.post.request.PostCreateRequest
+import com.wisehero.boardapp.api.post.request.PostUpdateRequest
 import com.wisehero.boardapp.api.post.response.PostCreateResponse
 import com.wisehero.boardapp.api.post.response.PostReadResponse
+import com.wisehero.boardapp.api.post.response.PostUpdateResponse
 import com.wisehero.boardapp.util.isValidPassword
 
 import org.springframework.stereotype.Service
@@ -40,5 +42,26 @@ class PostService(
             author = post.author,
             createdAt = post.createdAt
         )
+    }
+
+    @Transactional
+    fun updatePost(id: Long, request: PostUpdateRequest): PostUpdateResponse {
+        val post = postRepository.findPostById(id) ?: throw IllegalArgumentException("해당 ID의 게시글이 존재하지 않습니다.")
+        post.updatePostContent(request)
+        return PostUpdateResponse(
+            id = post.id!!,
+            updatedTitle = post.title,
+            updatedContent = post.content,
+            updatedAt = post.updatedAt
+        )
+    }
+
+    @Transactional
+    fun deletePost(id: Long, password: String) {
+        val post = postRepository.findPostById(id) ?: throw IllegalArgumentException("해당 ID의 게시글이 존재하지 않습니다.")
+        require(post.password == password) {
+            "비밀번호가 일치하지 않습니다."
+        }
+        postRepository.delete(post)
     }
 }
