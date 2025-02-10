@@ -1,6 +1,7 @@
 package com.wisehero.boardapp.domain.post
 
 import com.wisehero.boardapp.api.post.request.PostCreateRequest
+import com.wisehero.boardapp.api.post.request.PostUpdateRequest
 import com.wisehero.boardapp.api.post.response.PostCreateResponse
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
@@ -124,5 +125,49 @@ class PostServiceTest @Autowired constructor(
         assertThatThrownBy { postService.getPost(1L) }
             .isInstanceOf(IllegalArgumentException::class.java)
             .hasMessage("해당 ID의 게시글이 존재하지 않습니다.")
+    }
+
+    @Test
+    fun `게시글 수정 성공 테스트`() {
+        // given
+        val request = PostUpdateRequest(
+            title = "수정된 제목",
+            content = "수정된 내용",
+            password = "Abcdefg123!"
+        )
+        val post = Post(
+            title = "테스트 제목",
+            content = "테스트 내용",
+            author = "작성자",
+            password = "Abcdefg123!"
+        )
+        val savedPost = postRepository.save(post)
+
+        // when
+        val updatedPost = postService.updatePost(savedPost.id!!, request)
+
+        // then
+        assertThat(updatedPost.id).isEqualTo(savedPost.id)
+        assertThat(updatedPost.updatedTitle).isEqualTo("수정된 제목")
+        assertThat(updatedPost.updatedContent).isEqualTo("수정된 내용")
+        assertThat(updatedPost.updatedAt).isNotNull
+    }
+
+    @Test
+    fun `게시글 삭제 테스트`() {
+        // given
+        val Post = Post(
+            title = "테스트 제목",
+            content = "테스트 내용",
+            author = "작성자",
+            password = "Abcdefg123!"
+        )
+        val savedPost = postRepository.save(Post)
+
+        // when
+        postService.deletePost(savedPost.id!!, savedPost.password)
+
+        // then
+        assertThat(postRepository.findById(1L).isPresent).isFalse
     }
 }
