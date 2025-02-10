@@ -2,11 +2,7 @@ package com.wisehero.boardapp.domain.post
 
 import com.wisehero.boardapp.api.post.request.PostUpdateRequest
 import com.wisehero.boardapp.domain.BaseTimeEntity
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
+import jakarta.persistence.*
 
 @Entity
 class Post(
