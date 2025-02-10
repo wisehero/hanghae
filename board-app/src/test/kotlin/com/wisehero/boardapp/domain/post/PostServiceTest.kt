@@ -154,20 +154,61 @@ class PostServiceTest @Autowired constructor(
     }
 
     @Test
-    fun `게시글 삭제 테스트`() {
+    fun `게시글 수정 실패 테스트 - 수정시 입력한 패스워드가 불일치`() {
         // given
-        val Post = Post(
+        val wrongPassword = "aBcdefg123!"
+        val request = PostUpdateRequest(
+            title = "수정된 제목",
+            content = "수정된 내용",
+            password = wrongPassword
+        )
+        val post = Post(
             title = "테스트 제목",
             content = "테스트 내용",
             author = "작성자",
             password = "Abcdefg123!"
         )
-        val savedPost = postRepository.save(Post)
+        val savedPost = postRepository.save(post)
+
+        // when then
+        assertThatThrownBy { postService.updatePost(savedPost.id!!, request) }
+            .isInstanceOf(IllegalArgumentException::class.java)
+            .hasMessage("비밀번호가 일치하지 않습니다.")
+    }
+
+    @Test
+    fun `게시글 삭제 테스트`() {
+        // given
+        val post = Post(
+            title = "테스트 제목",
+            content = "테스트 내용",
+            author = "작성자",
+            password = "Abcdefg123!"
+        )
+        val savedPost = postRepository.save(post)
 
         // when
         postService.deletePost(savedPost.id!!, savedPost.password)
 
         // then
         assertThat(postRepository.findById(1L).isPresent).isFalse
+    }
+
+    @Test
+    fun `게시글 삭제 실패 테스트 - 삭제시 입력한 비밀번호가 불일치`() {
+        // given
+        val wrongPassword = "aBcdefg123!"
+        val post = Post(
+            title = "테스트 제목",
+            content = "테스트 내용",
+            author = "작성자",
+            password = "Abcdefg123!"
+        )
+        val savedPost = postRepository.save(post)
+
+        // when
+        assertThatThrownBy { postService.deletePost(savedPost.id!!, wrongPassword) }
+            .isInstanceOf(IllegalArgumentException::class.java)
+            .hasMessage("비밀번호가 일치하지 않습니다.")
     }
 }
