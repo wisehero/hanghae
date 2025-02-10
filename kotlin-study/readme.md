@@ -57,3 +57,30 @@ for (i in 1..10) {
     println(i)
 }
 ```
+
+---
+
+## Week 3
+
+### 클래스 설계
+
+- 코틀린에서도 자바와 마찬가지로 `class` 키워드를 사용하여 클래스를 선언한다.
+- 클래스에는 프로퍼티와 행위를 작성한다.
+- 클래스 종류로는 data class, enum class, sealed class, abstract class, object class 등이 있다.
+
+### 생성자의 활용
+
+- 기본 생성자와 명시적 생성자가 존재한다.
+- 명시적 생성자는 다시 또 주 생성자와 부 생성자로 나뉜다.
+
+```kotlin
+class Character(_name: String, _hairColor: String, _height: Double) {
+    var name: String = ""
+    var hairColor: String = ""
+    var height: Double = 0.0
+
+    init {
+        println("매개변수 없는 생성자 실행 완료")
+    }
+}
+```
