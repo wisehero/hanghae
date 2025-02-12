@@ -3,8 +3,7 @@ package com.wisehero.boardapp.domain.post
 import com.wisehero.boardapp.api.post.request.PostCreateRequest
 import com.wisehero.boardapp.api.post.request.PostUpdateRequest
 import com.wisehero.boardapp.api.post.response.PostCreateResponse
-import org.assertj.core.api.Assertions.assertThat
-import org.assertj.core.api.Assertions.assertThatThrownBy
+import org.assertj.core.api.Assertions.*
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -210,5 +209,26 @@ class PostServiceTest @Autowired constructor(
         assertThatThrownBy { postService.deletePost(savedPost.id!!, wrongPassword) }
             .isInstanceOf(IllegalArgumentException::class.java)
             .hasMessage("비밀번호가 일치하지 않습니다.")
+    }
+
+    @Test
+    fun `게시글 목록 조회 테스트 - 작성 날짜 기준 내림차순으로 정렬`() {
+        // given
+        val posts = List(10) { index ->
+            Post(
+                title = "테스트 제목$index",
+                content = "테스트 내용$index",
+                author = "작성자$index",
+                password = "Abcdefg123!"
+            )
+        }
+        postRepository.saveAll(posts)
+
+        // when
+        val postList = postService.getPosts()
+
+        // then
+        assertThat(postList.size).isEqualTo(10)
+
     }
 }

@@ -33,6 +33,18 @@ class PostService(
         )
     }
 
+    fun getPosts(): List<PostReadResponse> {
+        return postRepository.findAll().map {
+            PostReadResponse(
+                id = it.id!!,
+                title = it.title,
+                content = it.content,
+                author = it.author,
+                createdAt = it.createdAt
+            )
+        }.sortedByDescending { it.createdAt }
+    }
+
     fun getPost(id: Long): PostReadResponse {
         val post = postRepository.findPostById(id) ?: throw IllegalArgumentException("해당 ID의 게시글이 존재하지 않습니다.")
         return PostReadResponse(
