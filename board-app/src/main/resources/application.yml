@@ -18,3 +18,9 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
+
+jwt:
+  secret-key: rlawldndWkd123!
+  access-token-expire-time: 300 # 5분
+  refresh-token-expire-time: 7200 # 2시간
