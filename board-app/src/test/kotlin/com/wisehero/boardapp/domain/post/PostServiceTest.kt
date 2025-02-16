@@ -3,7 +3,8 @@ package com.wisehero.boardapp.domain.post
 import com.wisehero.boardapp.api.post.request.PostCreateRequest
 import com.wisehero.boardapp.api.post.request.PostUpdateRequest
 import com.wisehero.boardapp.api.post.response.PostCreateResponse
-import org.assertj.core.api.Assertions.*
+import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -229,6 +230,6 @@ class PostServiceTest @Autowired constructor(
 
         // then
         assertThat(postList.size).isEqualTo(10)
-
+        assertThat(postList.get(0).createdAt).isAfter(postList.get(1).createdAt)
     }
 }
