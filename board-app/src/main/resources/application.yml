@@ -9,7 +9,7 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
@@ -17,6 +17,6 @@ spring:
 
 
 jwt:
-  secret-key: rlawldndWkd123!
+  secret-key: 6rmA7KeA7JuF7Kex7J6l7JuQ7JiB7Kex6rmA7KeA7JuF7Kex7J6l7JuQ7JiB7Kex7J6l7JuQ7JiB7J207ISc66as7KaI66CI7J206rCA7J2E7JWI7Jyg7KeE7J2A64KY6rCA65287JWI7Jyg7KeE7J2A7KO87J6R66mk67KE64uI6rmM64SI64qU7KCA66as6rCA6528
   access-token-expire-time: 300 # 5분
   refresh-token-expire-time: 7200 # 2시간
