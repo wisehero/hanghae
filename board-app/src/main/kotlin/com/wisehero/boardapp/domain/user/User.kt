@@ -1,10 +1,7 @@
 package com.wisehero.boardapp.domain.user
 
 import com.wisehero.boardapp.domain.BaseTimeEntity
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
+import jakarta.persistence.*
 
 @Entity
 class User(
@@ -12,6 +9,7 @@ class User(
     val id: Long? = null,
     val email: String,
     val password: String,
+    @Enumerated(EnumType.STRING)
     val role: Role
 ) : BaseTimeEntity() {
 
