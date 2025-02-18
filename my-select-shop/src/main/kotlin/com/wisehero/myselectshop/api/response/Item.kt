@@ -1,17 +1,14 @@
 package com.wisehero.myselectshop.api.response
 
-data class Item(
-    val title: String,
-    val link: String,
-    val image: String,
-    val lprice: Int
-){
-    constructor(itemJson: JSONObject) : this(
-        title = itemJson.getString("title"),
-        link = itemJson.getString("link"),
-        image = itemJson.getString("image"),
-        lprice = itemJson.getInt("lprice")
-    )
+import com.fasterxml.jackson.annotation.JsonProperty
 
-    constructor() : this("", "", "", 0)
-}
+data class Item(
+    @JsonProperty("title")
+    val title: String = "",
+    @JsonProperty("link")
+    val link: String = "",
+    @JsonProperty("image")
+    val image: String = "",
+    @JsonProperty("lprice")
+    val lprice: Int = 0
+)
