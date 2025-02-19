@@ -20,7 +20,7 @@ class UserService(
         }
 
         val hashedPassword = passwordEncoder.encode(request.password)
-        val user: User = User(
+        val user = User(
             email = request.email,
             password = hashedPassword,
             role = Role.USER

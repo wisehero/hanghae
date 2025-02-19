@@ -230,6 +230,6 @@ class PostServiceTest @Autowired constructor(
 
         // then
         assertThat(postList.size).isEqualTo(10)
-        assertThat(postList.get(0).createdAt).isAfter(postList.get(1).createdAt)
+        assertThat(postList[0].createdAt).isAfter(postList[1].createdAt)
     }
 }
