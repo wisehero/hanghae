@@ -1,7 +1,6 @@
 package com.wisehero.boardapp.domain.auth
 
 import com.wisehero.boardapp.domain.user.UserRepository
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.*
